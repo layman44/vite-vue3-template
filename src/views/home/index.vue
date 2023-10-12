@@ -1,36 +1,14 @@
 <script setup lang="ts">
-import {
-  IconSunFill,
-  IconMoonFill,
-  IconGithub,
-} from '@arco-design/web-vue/es/icon';
+import { Moon, Sunny } from '@element-plus/icons-vue';
 import vueSvg from '@/assets/vue.svg?component';
 
-const theme = ref('light');
-
-const isDark = useDark({
-  valueDark: 'dark',
-  valueLight: 'light',
-  storageKey: 'theme',
-  onChanged(dark: boolean) {
-    if (dark) {
-      theme.value = 'dark';
-      document.body.setAttribute('arco-theme', 'dark');
-      document.documentElement.classList.add('dark');
-    } else {
-      theme.value = 'light';
-      document.body.removeAttribute('arco-theme');
-      document.documentElement.classList.remove('dark');
-    }
-  },
-});
-const toggleTheme = useToggle(isDark);
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
 
 const featureList = [
   { name: 'Vue3', url: 'https://cn.vuejs.org/' },
   { name: 'Vite4', url: 'https://cn.vitejs.dev/' },
   { name: 'TypeScript', url: 'https://www.typescriptlang.org/' },
-  { name: 'Arco Design Vue', url: 'https://arco.design/' },
   { name: 'Icones', url: 'https://icones.js.org/' },
   { name: 'Pnpm', url: 'https://www.pnpm.cn/' },
   { name: 'VueUse', url: 'https://vueuse.org/' },
@@ -56,23 +34,24 @@ const featureList = [
     </strong>
     <p class="mt-12">
       <template v-for="item in featureList" :key="item.url">
-        <a-link :href="item.url" target="_blank">{{ item.name }}</a-link>
-        <a-divider direction="vertical" v-if="!item.end" />
+        <el-link type="primary" :href="item.url" target="_blank">{{
+          item.name
+        }}</el-link>
+        <el-divider direction="vertical" v-if="!item.end" />
       </template>
     </p>
 
     <ul class="mt-10 flex justify-center">
       <li class="px-2">
-        <a-tooltip
-          :content="`点击切换为${theme === 'light' ? '暗黑' : '亮色'}模式`"
-        >
-          <a-button type="outline" shape="circle" @click="toggleTheme()">
-            <template #icon>
-              <icon-sun-fill style="font-size: 16px" v-if="theme === 'dark'" />
-              <icon-moon-fill style="font-size: 16px" v-else />
-            </template>
-          </a-button>
-        </a-tooltip>
+        <el-tooltip :content="`点击切换为${!isDark ? '暗黑' : '亮色'}模式`">
+          <el-button
+            type="primary"
+            :icon="isDark ? Moon : Sunny"
+            @click="toggleDark()"
+          >
+            <span class="ml-2">{{ isDark ? 'Dark' : 'Light' }}</span>
+          </el-button>
+        </el-tooltip>
       </li>
 
       <li class="px-2">

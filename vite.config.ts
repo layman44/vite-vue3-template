@@ -7,7 +7,7 @@ import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import {
-  ArcoResolver,
+  ElementPlusResolver,
   VueUseComponentsResolver,
 } from 'unplugin-vue-components/resolvers';
 import svgLoader from 'vite-svg-loader';
@@ -62,14 +62,21 @@ export default defineConfig({
         filepath: './eslintrc-auto-import.json',
         globalsPropValue: true,
       },
-      resolvers: [ArcoResolver()],
+      resolvers: [
+        ElementPlusResolver(),
+        IconsResolver({
+          prefix: 'Icon',
+        }),
+      ],
     }),
     Components({
       dts: './src/components.d.ts',
       resolvers: [
-        ArcoResolver({ sideEffect: true }),
+        ElementPlusResolver(),
         VueUseComponentsResolver(),
-        IconsResolver(),
+        IconsResolver({
+          enabledCollections: ['ep'],
+        }),
       ],
     }),
   ],
@@ -81,9 +88,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       less: {
-        modifyVars: {
-          'arcoblue-6': '#f85959',
-        },
+        modifyVars: {},
         javascriptEnabled: true,
       },
     },
