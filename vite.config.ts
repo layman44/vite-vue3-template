@@ -16,15 +16,16 @@ import svgLoader from 'vite-svg-loader';
 export default defineConfig({
   server: {
     host: true, // 可以以IP访问
-    port: 8080, // 端口
-    open: true, // 自动打开游览器
+    port: parseInt(process.env.PORT ?? '5173', 10),
     cors: true, // 允许跨域
     proxy: {
       '/api': {
-        // 这里配置真实的后端环境地址
-        target: 'http://example',
+        target:
+          process.env.services__apiservice__https__0 ||
+          process.env.services__apiservice__http__0,
         changeOrigin: true,
-        rewrite: (path) => path.replace('/api/', '/'),
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: false,
       },
     },
   },

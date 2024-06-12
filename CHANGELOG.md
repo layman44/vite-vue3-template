@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.2.0 (2024-06-12)
+
+
+### ✨ Features | 新功能
+
+* 删除Arco Design Vue,引入Element Plus ([4d2fdd7](https://github.com/layman44/frontend/commit/4d2fdd700e6afd5413139a7b67db79cf96015ad7))
+
 ## 1.1.0 (2023-05-09)
 
 
